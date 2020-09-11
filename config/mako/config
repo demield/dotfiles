@@ -1,0 +1,19 @@
+font=Source Code Pro 11
+format=<b>%a ⏵</b> %s\n%b
+sort=-time
+layer=overlay
+anchor=top-center
+background-color=#292d3e
+width=300
+height=100
+margin=5
+border-size=2
+border-color=#c792ea
+icons=0
+max-icon-size=64
+default-timeout=5000
+ignore-timeout=1
+
+[urgency=high]
+default-timeout=0
+

@@ -1,8 +1,14 @@
 syntax on
 set encoding=utf-8
+set nobackup
+set nowritebackup
 set path+=**
 set noshowmode
+set showmatch
+set lazyredraw
 set laststatus=2
+set cmdheight=2
+set updatetime=300
 set number relativenumber
 set cursorline cursorcolumn
 set tabstop=4 shiftwidth=4 expandtab
@@ -11,11 +17,13 @@ set wildmode=longest,list,full
 set colorcolumn=80
 set mouse=a
 set clipboard+=unnamedplus
+set shortmess+=c
 
 let g:netrw_banner=0
 let g:netrw_liststyle=3
 let g:netrw_browse_split=4
 let g:netrw_winsize=25
+let g:netrw_chgwin=1
 
 
 set statusline=%1*\ %-2.3{toupper(mode())}%*
@@ -30,8 +38,6 @@ highlight CursorColumn ctermbg=Black cterm=bold
 
 autocmd BufWritePost init.vim source %
 autocmd BufWritePre * %s/\s\+$//e
-
-autocmd WinEnter * if winnr('$') == 1 && getbufvar(winbufnr(winnr()), '&filetype') == 'netrw' || &buftype == 'quickfix' |q|endif
 
 " Custom function for opening new files
 " Opens new file inside window on the left of netrw instead of netrw window
@@ -64,17 +70,12 @@ function! ToggleNetrw()
     wincmd h
 endfunction
 
-augroup ProjectDrawer
-    autocmd!
-    autocmd VimEnter * :call ToggleNetrw()
-augroup END
-
 
 let mapleader=' '
 
-nnoremap <Leader>bd :bdelete<CR>
-nnoremap <Leader>bn :bnext<CR>
-nnoremap <Leader>bp :bprevious<CR>
+nnoremap <Leader>d :bn\|bd #<CR>
+nnoremap <Leader>] :bnext<CR>
+nnoremap <Leader>[ :bprevious<CR>
 nnoremap <Leader>bb :buffers<CR>
 
 nnoremap <Leader>h :split<Space>
@@ -85,16 +86,52 @@ nnoremap <Leader>e :Lex!<CR>
 
 call plug#begin('~/.config/nvim/plugged')
     Plug 'tpope/vim-commentary'
-    Plug 'prabirshrestha/vim-lsp'
-    Plug 'mattn/vim-lsp-settings'
-    Plug 'prabirshrestha/asyncomplete-lsp.vim'
-    Plug 'prabirshrestha/asyncomplete.vim'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'habamax/vim-godot'
+    Plug 'arcticicestudio/nord-vim'
+    Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 call plug#end()
 
-let g:lsp_settings_servers_dir='~/.local/share/vim-lsp/servers'
+let g:material_theme_style='palenight'
+set background=dark
+colorscheme material
 
-inoremap <expr><Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr><S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr><CR> pumvisible() ? "\<C-y>" : "\<CR>"
-imap <C-Space> <Plug>(asyncomplete_force_refresh)
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~# '\s'
+endfunction
 
+function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+    else
+        call CocAction('doHover')
+    endif
+endfunction
+
+inoremap <silent><expr><Tab> pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<Tab>" : coc#refresh()
+inoremap <expr><S-Tab> pumvisible() ? '\<C-p>' : '\<C-h>'
+inoremap <silent><expr><C-Space> coc#refresh()
+if exists('*complete_info')
+    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>f  :call CocAction('format')<CR>
