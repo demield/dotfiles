@@ -1,14 +1,15 @@
 font=Source Code Pro 11
-format=<b>%a ⏵</b> %s\n%b
+format=<b>%a</b> %s\n%b
 sort=-time
 layer=overlay
-anchor=top-center
-background-color=#292d3e
+anchor=bottom-center
+background-color=#282828
+text-color=#dedede
 width=300
 height=100
-margin=5
-border-size=2
-border-color=#c792ea
+margin=0
+border-size=4
+border-color=#d58cff
 icons=0
 max-icon-size=64
 default-timeout=5000
@@ -16,4 +17,5 @@ ignore-timeout=1
 
 [urgency=high]
 default-timeout=0
+border-color=#ea9090
 

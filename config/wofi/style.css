@@ -1,25 +1,27 @@
 * {
   font-family: Source Code Pro;
-  color: #eaeaea;
+  font-size: 12px;
+  color: #dedede;
 }
 
 window {
-  background-color: #292d3e;
+  background-color: #303030;
+  border: solid 2px #ea9090;
 }
 
 #outer-box {
-  margin-bottom: 12px;
+  margin: 2px;
 }
 
 #input {
   border: none;
-  background-color: #292d3e;
+  background-color: #282828;
   margin: 2px;
   box-shadow: none; /* Remove blue "border" */
 }
 
 #inner-box {
-  background-color: #292d3e;
+  background-color: #282828;
   margin: 2px;
   margin-top: 0;
 }
@@ -33,16 +35,16 @@ window {
 }
 
 #entry:selected {
-  background-color: #c792ea;
+  background-color: #6acad8;
   border-radius: 0px;
 }
 
 #text {
-  margin: 2px;
+  margin: 0px 2px;
 }
 
 #text:selected {
-  color: #eaeaea;
+  color: #282828;
 }
 
 .right {

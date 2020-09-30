@@ -7,10 +7,9 @@ set noshowmode
 set showmatch
 set lazyredraw
 set laststatus=2
-set cmdheight=2
 set updatetime=300
 set number relativenumber
-set cursorline cursorcolumn
+set cursorline
 set tabstop=4 shiftwidth=4 expandtab
 set ignorecase smartcase
 set wildmode=longest,list,full
@@ -29,11 +28,12 @@ let g:netrw_chgwin=1
 set statusline=%1*\ %-2.3{toupper(mode())}%*
 set statusline+=%2*\ %<%f%=\ %y\ %m\ [%n]\ %r\ %h\ [%l,%c]%*
 
-highlight User1 term=bold cterm=inverse,bold ctermfg=7
-highlight User2 term=bold cterm=bold ctermbg=0 ctermfg=7
+highlight User1 term=bold cterm=inverse,bold ctermfg=green
+highlight User2 term=bold cterm=bold ctermbg=white ctermfg=black
 
-highlight CursorLine ctermbg=Black cterm=bold
-highlight CursorColumn ctermbg=Black cterm=bold
+highlight CursorLine cterm=bold
+
+highlight Visual ctermbg=white cterm=bold
 
 
 autocmd BufWritePost init.vim source %
@@ -71,7 +71,9 @@ function! ToggleNetrw()
 endfunction
 
 
-let mapleader=' '
+let mapleader="\<Space>"
+
+inoremap jj <Esc>
 
 nnoremap <Leader>d :bn\|bd #<CR>
 nnoremap <Leader>] :bnext<CR>
@@ -85,16 +87,14 @@ nnoremap <Leader>e :Lex!<CR>
 
 
 call plug#begin('~/.config/nvim/plugged')
+    Plug 'morhetz/gruvbox'
     Plug 'tpope/vim-commentary'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'habamax/vim-godot'
-    Plug 'arcticicestudio/nord-vim'
-    Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+    Plug 'leafgarland/typescript-vim'
+    Plug 'peitalin/vim-jsx-typescript'
 call plug#end()
 
-let g:material_theme_style='palenight'
-set background=dark
-colorscheme material
+colorscheme gruvbox
 
 function! s:check_back_space() abort
     let col = col('.') - 1

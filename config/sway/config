@@ -6,12 +6,6 @@ set $right l
 set $term alacritty
 set $menu wofi
 
-exec swayidle -w \
-    timeout 300 'swaylock -f -c 000000' \
-    timeout 600 'swaymsg "output * dpms off"' \
-        resume 'swaymsg "output * dpms on"' \
-    before-sleep 'swaylock -f -c 000000'
-
 input "type:keyboard" {
     xkb_layout us,ru
     xkb_options grp:toggle
@@ -25,6 +19,7 @@ input "1267:12444:ELAN1200:00_04F3:309C_Touchpad" {
 
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
+bindsym $mod+Ctrl+l exec screenlock
 bindsym $mod+d exec $menu --show=drun
 bindsym $mod+Shift+d exec $menu --show=run
 floating_modifier $mod normal
@@ -37,8 +32,8 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym Ctrl+XF86AudioRaiseVolume exec pactl set-source-volume @DEFAULT_SOURCE@ +5%
 bindsym Ctrl+XF86AudioLowerVolume exec pactl set-source-volume @DEFAULT_SOURCE@ -5%
 bindsym Ctrl+XF86AudioMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 1%-
+bindsym XF86MonBrightnessUp exec brightnessctl set +1%
 
 bindsym --release Print exec "$HOME/.local/bin/screenshot select"
 bindsym --release Shift+Print exec "$HOME/.local/bin/screenshot window"
@@ -105,17 +100,19 @@ font 'Source Code Pro' 9
 
 default_border pixel 2
 gaps inner 5
-gaps outer 5
+gaps outer 0
 
+# output eDP-1 mode --custom 1366x768
 output * bg $HOME/Pictures/Wallpaper.png fill
 
-client.background n/a #292d3e n/a
-client.focused #c792ea #c792ea #eaeaea #c792ea #c792ea
-client.focused_inactive #292d3e #292d3e #959dcb #292d3e #292d3e
-client.unfocused #292d3e #292d3e #959dcb #292d3e #292d3e
-client.urgent #c792ea #c792ea #eaeaea #c792ea #c792ea
+client.background n/a #303030 n/a
+client.focused #6acad8 #6acad8 #ada29e #6acad8 #6acad8
+client.focused_inactive #282828 #282828 #ada29e #282828 #282828
+client.unfocused #282828 #282828 #ada29e #282828 #282828
+client.urgent #ea9090 #ea9090 #ada29e #ea9090 #ea9090
 
 exec waybar
 exec mako
-exec $HOME/.local/bin/wal -n -e --theme nord
+# exec pulseeffects --gapplication-service
+exec xsettingsd
 include /etc/sway/config.d/*
