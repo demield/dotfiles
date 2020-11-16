@@ -2,6 +2,9 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
 
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+
 # Pretty much a copy of Luke Smith's zsh config
 autoload -U compinit
 zstyle ":completion:*" menu select

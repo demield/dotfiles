@@ -39,37 +39,6 @@ highlight Visual ctermbg=white cterm=bold
 autocmd BufWritePost init.vim source %
 autocmd BufWritePre * %s/\s\+$//e
 
-" Custom function for opening new files
-" Opens new file inside window on the left of netrw instead of netrw window
-function! CustomNetrwFileOpen()
-    let fname = input('Enter filename: ')
-    if exists('b:netrw_curdir')
-        let curdir = b:netrw_curdir
-        wincmd t
-        if curdir =~ '/$'
-            exe "e ".fnameescape(curdir.fname)
-        else
-            exe "e ".fnameescape(curdir.'/'.fname)
-        endif
-        unlet curdir
-    endif
-    unlet fname
-endfunction
-
-function! NetrwMappings()
-    noremap <buffer><silent>% :call CustomNetrwFileOpen()<CR>
-endfunction
-
-augroup NetrwGroup
-    autocmd!
-    autocmd filetype netrw call NetrwMappings()
-augroup END
-
-function! ToggleNetrw()
-    silent Lex!
-    wincmd h
-endfunction
-
 
 let mapleader="\<Space>"
 
@@ -83,18 +52,31 @@ nnoremap <Leader>bb :buffers<CR>
 nnoremap <Leader>h :split<Space>
 nnoremap <Leader>v :vsplit<Space>
 
-nnoremap <Leader>e :Lex!<CR>
-
 
 call plug#begin('~/.config/nvim/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'tpope/vim-commentary'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'leafgarland/typescript-vim'
-    Plug 'peitalin/vim-jsx-typescript'
 call plug#end()
 
 colorscheme gruvbox
+
+let g:coc_explorer_global_presets = {
+\   'floatingLeftside': {
+\     'position': 'floating',
+\     'floating-position': 'left-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   },
+\   'floatingRightside': {
+\     'position': 'floating',
+\     'floating-position': 'right-center',
+\     'floating-width': 50,
+\     'open-action-strategy': 'sourceWindow',
+\   }
+\ }
+
+nnoremap <Leader>e :CocCommand explorer --toggle --preset floatingRightside<CR>
 
 function! s:check_back_space() abort
     let col = col('.') - 1

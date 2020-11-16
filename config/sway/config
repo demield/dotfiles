@@ -19,12 +19,12 @@ input "1267:12444:ELAN1200:00_04F3:309C_Touchpad" {
 
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
-bindsym $mod+Ctrl+l exec screenlock
+bindsym $mod+Ctrl+l exec swaylock
 bindsym $mod+d exec $menu --show=drun
 bindsym $mod+Shift+d exec $menu --show=run
 floating_modifier $mod normal
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+q exec swaynag -t warning -m 'Do you really want to exit?' -b 'Yes' 'swaymsg exit'
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -96,7 +96,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-font 'Source Code Pro' 9
+font 'CozetteVector' 12
 
 default_border pixel 2
 gaps inner 5
@@ -106,13 +106,13 @@ gaps outer 0
 output * bg $HOME/Pictures/Wallpaper.png fill
 
 client.background n/a #303030 n/a
-client.focused #6acad8 #6acad8 #ada29e #6acad8 #6acad8
-client.focused_inactive #282828 #282828 #ada29e #282828 #282828
-client.unfocused #282828 #282828 #ada29e #282828 #282828
+client.focused #6acad8 #6acad8 #2b2828 #6acad8 #6acad8
+client.focused_inactive #2b2828 #2b2828 #ada29e #2b2828 #2b2828
+client.unfocused #2b2828 #2b2828 #cccccc #2b2828 #2b2828
 client.urgent #ea9090 #ea9090 #ada29e #ea9090 #ea9090
 
 exec waybar
 exec mako
 # exec pulseeffects --gapplication-service
-exec xsettingsd
+# exec xsettingsd
 include /etc/sway/config.d/*
