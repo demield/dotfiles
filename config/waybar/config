@@ -1,5 +1,5 @@
 {
-    "height": 24,
+    "height": 14,
     "modules-left": ["clock", "sway/mode", "tray"],
     "modules-center": ["sway/workspaces"],
     "modules-right": ["network", "pulseaudio", "cpu", "memory", "temperature", "battery"],

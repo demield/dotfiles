@@ -19,12 +19,35 @@ input "1267:12444:ELAN1200:00_04F3:309C_Touchpad" {
 
 bindsym $mod+Return exec $term
 bindsym $mod+q kill
-bindsym $mod+Ctrl+l exec swaylock
+bindsym $mod+Ctrl+l exec swaylock \
+    -i $HOME/Pictures/Wallpaper.png \
+    -c 303030 -r \
+    --indicator-radius 100 \
+    --indicator-thickness 10 \
+    --bs-hl-color ea9090 \
+    --font CozetteVector \
+    --font-size 14 \
+    --inside-color 303030 \
+    --inside-clear-color 303030 \
+    --inside-ver-color 303030 \
+    --inside-wrong-color 303030 \
+    --key-hl-color 6acad8 \
+    --ring-color 574f4a  \
+    --ring-clear-color 574f4a \
+    --ring-ver-color 63b1bc \
+    --ring-wrong-color ea9090 \
+    --separator-color 00000000 \
+    --text-color cccccc \
+    --text-clear-color cccccc \
+    --text-ver-color cccccc \
+    --text-wrong-color cccccc
 bindsym $mod+d exec $menu --show=drun
 bindsym $mod+Shift+d exec $menu --show=run
 floating_modifier $mod normal
 bindsym $mod+Shift+c reload
-bindsym $mod+Shift+q exec swaynag -t warning -m 'Do you really want to exit?' -b 'Yes' 'swaymsg exit'
+bindsym $mod+Shift+q exec swaynag \
+    -t warning -m 'Do you really want to exit?' \
+    -b 'Yes' 'swaymsg exit'
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -96,20 +119,20 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-font 'CozetteVector' 12
+font 'CozetteVector' 9
 
 default_border pixel 2
 gaps inner 5
-gaps outer 0
+gaps outer 5
 
-# output eDP-1 mode --custom 1366x768
+# output eDP-1 mode --custom 1280x720
 output * bg $HOME/Pictures/Wallpaper.png fill
 
-client.background n/a #303030 n/a
-client.focused #6acad8 #6acad8 #2b2828 #6acad8 #6acad8
-client.focused_inactive #2b2828 #2b2828 #ada29e #2b2828 #2b2828
-client.unfocused #2b2828 #2b2828 #cccccc #2b2828 #2b2828
-client.urgent #ea9090 #ea9090 #ada29e #ea9090 #ea9090
+client.background n/a #1b1d1e n/a
+client.focused #f92672 #f92672 #f8f8f0 #f92672 #f92672
+client.focused_inactive #e6db74 #e6db74 #465457 #e6db74 #e6db74
+client.unfocused #1b1d1e #1b1d1e #f8f8f0 #1b1d1e #1b1d1e
+client.urgent #a6e22e #a6e22e #465457 #a6e22e #a6e22e
 
 exec waybar
 exec mako

@@ -5,35 +5,36 @@ window:
   padding:
     x: 5
     y: 5
+background_opacity: 0.9
 
 font:
   normal:
-    family: CozetteVector
+    family: Source Code Pro
   bold:
-    family: CozetteVector
+    family: Source Code Pro
   italic:
-    family: CozetteVector
-  size: 14
+    family: Source Code Pro
+  size: 12
 
 colors:
   primary:
-    background: '0x303030'
-    foreground: '0xcccccc'
+    background: '0x1b1d1e'
+    foreground: '0xf8f8f2'
   normal:
-    black:   '0x574f4a'
-    red:     '0xea9090'
-    green:   '0x90cfb0'
-    yellow:  '0xf9d87a'
-    blue:    '0x63b1bc'
-    magenta: '0xd58cff'
-    cyan:    '0x6acad8'
-    white:   '0xdedede'
+    black:   '0x465457'
+    red:     '0xf92672'
+    green:   '0xa6e22e'
+    yellow:  '0xe6db74'
+    blue:    '0x1355aa'
+    magenta: '0xae81ff'
+    cyan:    '0x66d9ef'
+    white:   '0xf8f8f0'
   bright:
-    black:   '0x574f4a'
-    red:     '0xea9090'
-    green:   '0x90cfb0'
-    yellow:  '0xf9d87a'
-    blue:    '0x63b1bc'
-    magenta: '0xd58cff'
-    cyan:    '0x6acad8'
-    white:   '0xdedede'
+    black:   '0x465457'
+    red:     '0xf92672'
+    green:   '0xa6e22e'
+    yellow:  '0xe6db74'
+    blue:    '0x1355aa'
+    magenta: '0xae81ff'
+    cyan:    '0x66d9ef'
+    white:   '0xf8f8f0'
