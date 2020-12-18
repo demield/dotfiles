@@ -1,0 +1,99 @@
+ @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
+/** TabBar */
+:root {
+  --tab-min-height: 1.3em !important;
+}
+.tab-label-container {
+  height: var(--tab-min-height);
+}
+.tab-label {
+  line-height: var(--tab-min-height) !important;
+  margin-top: 2px !important;
+}
+.tab-icon-image {
+  margin-top: 2px !important;
+}
+.tab-icon-image,
+.tab-icon-sound,
+.tab-close-button {
+  height: 1em !important;
+  width: 1em !important;
+}
+.titlebar-buttonbox-container { display: none; }
+.titlebar-spacer { display: none; }
+#tabs-newtab-button { display: none; }
+#alltabs-button { display: none !important; }
+#new-tab-button { display: none; }
+#titlebar{ -moz-appearance: none !important; }
+#tabbrowser-tabs, #tabbrowser-tabs > .tabbrowser-arrowscrollbox, #tabbrowser-arrowscrollbox{ min-height: 0 !important; }
+:root:not([customizing]) #tabbrowser-tabs .tabs-newtab-button,
+:root:not([customizing]) #tabs-newtab-button,
+:root:not([customizing]) #TabsToolbar-customization-target > .toolbarbutton-1,
+:root:not([customizing]) #TabsToolbar .titlebar-button{
+  -moz-appearance: none !important;
+  height: 0px;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  -moz-box-align: stretch;
+  margin: 0 !important;
+}
+#tabbrowser-tabs .tabbrowser-tab{ height: var(--tab-min-height) }
+#tabbrowser-tabs .tabbrowser-tab[first-visible-tab="true"][last-visible-tab="true"]{
+  visibility: collapse !important;
+}
+:root[tabsintitlebar] #toolbar-menubar[autohide="true"][inactive]{
+  transition: height 0ms steps(1) 80ms;
+}
+#toolbar {
+  min-height: 0 !important;
+}
+.tabbrowser-tab:first-child{ counter-reset: nth-tab 0 }
+.tab-text::before{ content: counter(nth-tab) ": "; counter-increment: nth-tab }
+.tabbrowser-tab .tab-close-button{
+  display:none;
+}
+.tabbrowser-tab:not([pinned]):hover .tab-close-button{
+  display:-moz-box !important;
+}
+.tabbrowser-tab[fadein]{ max-width: 100vw !important }
+
+/** URLBar */
+#pocket-button { display: none; }
+#urlbar-go-button { display: none; }
+@-moz-document url(chrome://browser/content/browser.xhtml) {
+    #urlbar { font-size: 14px !important; }
+    #urlbar[breakout][breakout-extend] {
+        top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
+        left: 0 !important;
+        width: 100% !important;
+    }
+    #urlbar[breakout][breakout-extend] > #urlbar-input-container {
+        height: var(--urlbar-height) !important;
+        padding-block: 0 !important;
+        padding-inline: 0 !important;
+    }
+}
+
+/** Navbar */
+/* #back-button { display: none; } */
+#forward-button { display: none; }
+#reload-button { display: none; }
+#home-button { display: none; }
+#library-button { display: none; }
+#sidebar-button { display: none; }
+/* #nav-bar-overflow-button { display: none !important; } */
+/* #PanelUI-button { display: none; } */
+#customizableui-special-spring1,
+#customizableui-special-spring2 { display: none; }
+#nav-bar,
+#navigator-toolbox {
+  border-width: 0 !important;
+}
+
+/** Sidebar */
+#sidebar-header { display: none; }
+#sidebar-search-container { display: none; }
+.sidebar-placesTreechildren {
+  padding-top: 0.3em;
+}

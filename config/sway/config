@@ -119,7 +119,7 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-font 'CozetteVector' 9
+font 'Source Code Pro' 10
 
 default_border pixel 2
 gaps inner 5

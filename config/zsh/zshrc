@@ -1,4 +1,5 @@
 HISTSIZE=10000
+
 SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
 
@@ -15,11 +16,11 @@ _comp_options+=(globdots)
 autoload -U colors
 colors
 
-PS1="%B%{$fg[magenta]%}%n %{$fg[blue]%}%M %{$fg[white]%}%~%{$reset_color%} >%b "
+PS1="%n@%M %~ > "
 
 case $TERM in
   xterm*)
-    precmd () {print -Pn "\e]0;%~ - Alacritty\a"}
+#    precmd () {print -Pn "\e]0;%~ - Alacritty\a"}
     ;;
 esac
 
