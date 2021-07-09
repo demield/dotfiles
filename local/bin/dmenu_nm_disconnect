@@ -1,0 +1,24 @@
+#!/bin/sh
+
+
+APPLICATION_NAME="Network Manager"
+SUCCESS_MESSAGE="Successfuly disconnected from \"%s\""
+FAIL_MESSAGE="Failed to disconnect from \"%s\""
+
+CONNECTION_NAME="$(\
+  nmcli connection show --active \
+  | tail -n +2 \
+  | awk '{ print $3 "\t" $1 }' \
+  | wofi -c "$HOME/.config/wofi/trs_config" --dmenu \
+  | cut -f 2)"
+
+test ! -z "$CONNECTION_NAME" && { \
+  nmcli connection down "$CONNECTION_NAME" \
+  && notify-send -a "$APPLICATION_NAME" "$(printf "$SUCCESS_MESSAGE" "$CONNECTION_NAME")" \
+  || notify-send -a "$APPLICATION_NAME" "$(printf "$FAIL_MESSAGE" "$CONNECTION_NAME")"; }
+
+unset APPLICATION_NAME
+unset SUCCESS_MESSAGE
+unset FAIL_MESSAGE
+unset CONNECTION_NAME
+

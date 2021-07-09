@@ -1,0 +1,23 @@
+#!/bin/sh
+
+APPLICATION_NAME="Pulseaudio"
+SUCCESS_MESSAGE="Successfuly switched to \"%s\""
+FAIL_MESSAGE="Failed to switch to \"%s\""
+
+SINK_NAME="$(\
+  pactl list sinks \
+  | grep Name \
+  | cut -d ' ' -f 2 \
+  | wofi -c "$HOME/.config/wofi/trs_config" --dmenu \
+  | cut -f 2)"
+
+test ! -z "$SINK_NAME" && { \
+  pactl set-default-sink "$SINK_NAME" \
+  && notify-send -a "$APPLICATION_NAME" "$(printf "$SUCCESS_MESSAGE" "$SINK_NAME")" \
+  || notify-send -a "$APPLICATION_NAME" "$(printf "$FAIL_MESSAGE" "$SINK_NAME")"; }
+
+unset APPLICATION_NAME
+unset SUCCESS_MESSAGE
+unset FAIL_MESSAGE
+unset SINK_NAME
+

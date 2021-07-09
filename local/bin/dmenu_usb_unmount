@@ -1,0 +1,26 @@
+#!/bin/sh
+
+APPLICATION_NAME="Disk Manager"
+SUCCESS_MESSAGE="Successfuly unmounted \"%s\""
+FAIL_MESSAGE="Failed to unmount \"%s\""
+
+PARTITIONS="$(\
+  df 2>/dev/null \
+  | grep -E 'sd[^a][0-9]+' \
+  | sed 's/\ \ */\ /g' \
+  | awk '{ if ($6) { print $1} }')"
+
+test ! -z "$PARTITIONS" && { \
+  PARTITION_PATH=$(echo "$PARTITIONS" | wofi -c "$HOME/.config/wofi/trs_config" --dmenu);
+  test ! -z "$PARTITION_PATH" && { \
+    udisksctl unmount -b "$PARTITION_PATH" \
+    && notify-send -a "$APPLICATION_NAME" "$(printf "$SUCCESS_MESSAGE" "$PARTITION_PATH")" \
+    || notify-send -a "$APPLICATION_NAME" "$(printf "$FAIL_MESSAGE" "$PARTITION_PATH")"; } } \
+  || notify-send -a "$APPLICATION_NAME" "No mounted partitions"
+
+unset APPLICATION_NAME
+unset SUCCESS_MESSAGE
+unset FAIL_MESSAGE
+unset PARTITIONS
+unset PARTITION_PATH
+

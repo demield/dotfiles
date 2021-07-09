@@ -1,0 +1,31 @@
+#!/bin/sh
+
+APPLICATION_NAME="Network Manager"
+SUCCESS_MESSAGE="Successfuly connected to \"%s\""
+FAIL_MESSAGE="Failed to connect to \"%s\""
+
+ALL_ACTIVE_CONNECTIONS_FILE="$(mktemp -p /tmp nm_tmp.XXX)"
+ALL_CONNECTIONS_FILE="$(mktemp -p /tmp nm_tmp.XXX)"
+
+nmcli connection show --active | tail -n +2 > "$ALL_ACTIVE_CONNECTIONS_FILE"
+nmcli connection show | tail -n +2 > "$ALL_CONNECTIONS_FILE"
+
+CONNECTION_NAME="$(\
+  comm -13 "$ALL_ACTIVE_CONNECTIONS_FILE" "$ALL_CONNECTIONS_FILE" \
+  | awk '{ print $3 "\t" $1 }' \
+  | wofi -c "$HOME/.config/wofi/trs_config" --dmenu | cut -f 2)"
+
+test ! -z "$CONNECTION_NAME" && { \
+  nmcli connection up "$CONNECTION_NAME" \
+  && notify-send -a "$APPLICATION_NAME" "$(printf "$SUCCESS_MESSAGE" "$CONNECTION_NAME")" \
+  || notify-send -a "$APPLICATION_NAME" "$(printf "$FAIL_MESSAGE" "$CONNECTION_NAME")"; }
+
+rm "$ALL_ACTIVE_CONNECTIONS_FILE" "$ALL_CONNECTIONS_FILE"
+
+unset APPLICATION_NAME
+unset SUCCESS_MESSAGE
+unset FAIL_MESSAGE
+unset ALL_ACTIVE_CONNECTIONS_FILE
+unset ALL_CONNECTIONS_FILE
+unset CONNECTION_NAME
+

@@ -1,0 +1,25 @@
+#!/bin/sh
+
+source "$HOME/.config/themes/Pop-dark/colors.sh"
+
+swaylock -i "$HOME/.config/wallpaper" \
+  --indicator --clock \
+  --inside-color "$BACKGROUND" \
+  --inside-clear-color "$BACKGROUND" \
+  --inside-ver-color "$BACKGROUND" \
+  --inside-wrong-color "$BACKGROUND" \
+  --key-hl-color "$BRIGHT_CYAN" \
+  --line-color "$BACKGROUND" \
+  --line-clear-color "$BACKGROUND" \
+  --line-ver-color "$BACKGROUND" \
+  --line-wrong-color "$BACKGROUND" \
+  --ring-color "$BACKGROUND" \
+  --ring-clear-color "$BRIGHT_YELLOW" \
+  --ring-ver-color "$BRIGHT_BLUE" \
+  --ring-wrong-color "$BRIGHT_RED" \
+  --separator-color "$BACKGROUND" \
+  --text-color "$FOREGROUND" \
+  --text-clear-color "$FOREGROUND" \
+  --text-ver-color "$FOREGROUND" \
+  --text-wrong-color "$FOREGROUND"
+

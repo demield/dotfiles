@@ -1,0 +1,19 @@
+#!/bin/sh
+
+APPLICATION_NAME="Sway"
+SUCCESS_MESSAGE="Switched wallpaper to \"%s\""
+
+WALLPAPER=$(find $HOME/Wallpapers -name '*.png' | wofi --dmenu)
+WALLPAPER_NAME=$(echo $WALLPAPER | awk -F / '{ print $(NF) }' | cut -d '.' -f 1)
+
+test ! -z "$WALLPAPER" && { \
+  killall mpvpaper; \
+  swaymsg "output * bg $WALLPAPER fill" \
+  && { { unlink $HOME/.config/wallpaper; ln -s "$WALLPAPER" $HOME/.config/wallpaper; } \
+    && notify-send -a "$APPLICATION_NAME" "$(printf "$SUCCESS_MESSAGE" "$WALLPAPER_NAME")";} }
+
+unset APPLICATION_NAME
+unset SUCCESS_MESSAGE
+unset WALLPAPER
+unset WALLPAPER_NAME
+

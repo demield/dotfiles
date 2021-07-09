@@ -1,0 +1,13 @@
+input "type:keyboard" {
+	xkb_layout us,ru
+	xkb_options grp:toggle
+  xkb_capslock disable
+  repeat_delay 300
+  repeat_rate 30
+}
+
+input "type:touchpad" {
+	tap enabled
+	natural_scroll disabled
+}
+

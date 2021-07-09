@@ -1,0 +1,4 @@
+#!/bin/sh
+
+swaynag -t warning -m 'Do you really want to exit?' -b 'Yes' 'swaymsg exit'
+

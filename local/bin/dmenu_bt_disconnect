@@ -1,0 +1,21 @@
+#!/bin/sh
+
+APPLICATION_NAME="Bluetooth"
+SUCCESS_MESSAGE="Successfuly disconnected from \"%s\""
+FAIL_MESSAGE="Failed to disconnect from \"%s\""
+
+BTCTL_OUTPUT="$(bluetoothctl disconnect)"
+DEVICE_MAC_ADDRESS="$(echo $BTCTL_OUTPUT | grep Attempting | cut -d ' ' -f 5)"
+DEVICE_NAME="$(bluetoothctl devices | grep $DEVICE_MAC_ADDRESS | cut -d ' ' -f 2)"
+
+test ! -z "$(echo $BTCTL_OUTPUT | grep Successful)" \
+  && notify-send -a "$APPLICATION_NAME" "$(printf "$SUCCESS_MESSAGE" "$DEVICE_NAME")" \
+  || notify-send -a "$APPLICATION_NAME" "$(printf "$FAIL_MESSAGE" "$DEVICE_NAME")"
+
+unset APPLICATION_NAME
+unset SUCCESS_MESSAGE
+unset FAIL_MESSAGE
+unset BTCTL_OUTPUT
+unset DEVICE_MAC_ADDRESS
+unset DEVICE_NAME
+

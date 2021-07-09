@@ -1,0 +1,20 @@
+include $HOME/.config/themes/Pop-dark/colors.sway
+
+font 'Terminus' 9
+
+default_border pixel 1
+gaps inner 0
+gaps outer 0
+
+client.background n/a $background n/a
+client.focused $bright-cyan $bright-cyan $background $bright-cyan $bright-cyan
+client.focused_inactive $normal-cyan $normal-cyan $foreground $normal-cyan $normal-cyan
+client.unfocused $bright-black $bright-black $foreground $bright-black $bright-black
+client.urgent $bright-yellow $bright-yellow $foreground $bright-yellow $bright-yellow
+
+output * bg ~/.config/wallpaper fill
+# output eDP-1 mode --custom 1280x720
+# swaymsg output eDP-1 pos 0 1080
+
+exec_always $HOME/.local/bin/multimonitor_setup
+
