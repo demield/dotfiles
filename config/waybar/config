@@ -1,8 +1,28 @@
 {
-    "height": 14,
-    "modules-left": ["clock", "sway/mode", "tray"],
-    "modules-center": ["sway/workspaces"],
-    "modules-right": ["network", "pulseaudio", "cpu", "memory", "temperature", "battery"],
+    "height": 18,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "modules-left": ["sway/language", "clock", "custom/spotify"],
+    "modules-center": ["sway/mode", "sway/workspaces"],
+    "modules-right": ["tray", "network", "pulseaudio", "cpu", "memory", "temperature", "battery"],
+    "sway/language": {
+        "format": "{}"
+    },
+    "clock": {
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%Y-%m-%d}"
+    },
+    "custom/spotify": {
+        "interval": 5,
+        "return-type": "json",
+        "exec": "~/.config/waybar/modules/spotify.sh",
+        "exec-if": "pgrep spotify",
+        "escape": true,
+        "on-click": "playerctl play-pause --player=spotify",
+        "on-scroll-up": "playerctl next --player=spotify",
+        "on-scroll-down": "playerctl previous --player=spotify"
+    },
     "sway/mode": {
         "format": "<span>{}</span>"
     },
@@ -10,45 +30,41 @@
         "icon-size": 16,
         "spacing": 10
     },
-    "clock": {
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+    "network": {
+        "format-wifi": "{essid} {signalStrength}%",
+        "format-ethernet": "{ifname} {ipaddr}/{cidr}",
+        "format-linked": "{ifname} nip",
+        "format-disconnected": "dc",
+        "format-alt": "{ifname} {ipaddr}/{cidr}"
+    },
+    "pulseaudio": {
+        "format": "{volume}% {format_source}",
+        "format-bluetooth": "(bt) {volume}% {format_source}",
+        "format-bluetooth-muted": "(bt) m {format_source}",
+        "format-muted": "m {format_source}",
+        "format-source": "{volume}%",
+        "format-source-muted": "m",
+        "on-click": "pavucontrol"
     },
     "cpu": {
-        "format": "[cpu: {usage}%]",
+        "format": "{usage}%",
         "tooltip": false
     },
     "memory": {
-        "format": "[mem: {}%]"
+        "format": "{}%"
     },
     "temperature": {
         "critical-threshold": 80,
-        "format": "[tmp: {temperatureC}°C]"
+        "format": "{temperatureC}°C"
     },
     "battery": {
         "states": {
             "warning": 30,
             "critical": 15
         },
-        "format": "[bat: {capacity}%]",
-        "format-charging": "[bat: {capacity}% chg]",
-        "format-plugged": "[bat: {capacity}% pgd]",
-        "format-alt": "[bat: {time} {icon}]"
-    },
-    "network": {
-        "format-wifi": "[net: {essid} ({signalStrength}%)]",
-        "format-ethernet": "[net: {ifname} {ipaddr}/{cidr}]",
-        "format-linked": "[net: {ifname} no ip]",
-        "format-disconnected": "[net: dcnd]",
-        "format-alt": "[net: {ifname} {ipaddr}/{cidr}]"
-    },
-    "pulseaudio": {
-        "format": "[vol: {volume}% {format_source}]",
-        "format-bluetooth": "[vol(bt): {volume}% {format_source}]",
-        "format-bluetooth-muted": "[vol(bt): mute {format_source}]",
-        "format-muted": "[vol: mute {format_source}]",
-        "format-source": "mic: {volume}%",
-        "format-source-muted": "mic: mute",
-        "on-click": "pavucontrol"
+        "format": "{capacity}%",
+        "format-charging": "{capacity}% c",
+        "format-plugged": "{capacity}% p",
+        "format-alt": "{time} {icon}"
     }
 }

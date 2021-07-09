@@ -1,15 +1,15 @@
-font=Source Code Pro 14
+font=Terminus 10
 format=<b>%a</b> %s\n%b
 sort=-time
 layer=overlay
-anchor=bottom-center
-background-color=#1b1d1e
-text-color=#f8f8f0
-width=300
-height=100
-margin=0
-border-size=4
-border-color=#ae81ff
+anchor=top-right
+background-color=#333333
+text-color=#F2F2F2
+width=256
+height=128
+margin=5
+border-size=2
+border-color=#88807C
 icons=0
 max-icon-size=64
 default-timeout=5000
@@ -17,5 +17,5 @@ ignore-timeout=1
 
 [urgency=high]
 default-timeout=0
-border-color=#e6db74
+border-color=#FFCE51
 

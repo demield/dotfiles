@@ -1,9 +1,9 @@
 insensitive=true
 prompt=
-width=600
-height=900
+width=720
+height=480
 term=alacritty
 hide_scroll=true
 location=2
 xoffset=0
-yoffset=50
+yoffset=240
