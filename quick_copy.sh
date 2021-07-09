@@ -1,5 +1,6 @@
 #!/bin/sh
 
+cp -r "$HOME/.config/themes"        "./config/"
 # cp -r "$HOME/.config/alacritty"     "./config/"
 cp -r "$HOME/.config/foot"          "./config/"
 # cp -r "$HOME/.config/zsh"           "./config/"
