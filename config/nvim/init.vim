@@ -56,6 +56,7 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'dense-analysis/ale'
   Plug 'neovim/nvim-lspconfig'
+  Plug 'kabouzeid/nvim-lspinstall'
 call plug#end()
 
 colorscheme molokai
@@ -67,4 +68,25 @@ highlight Normal ctermbg=none
 highlight NonText ctermbg=none
 highlight Normal guibg=none
 highlight NonText guibg=none
+
+lua << EOF
+  local nvim_lsp = require('lspconfig')
+
+  local on_attach = function(client, bufnr)
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  end
+
+  require'lspinstall'.setup()
+  local servers = require'lspinstall'.installed_servers()
+  for _, server in pairs(servers) do
+    nvim_lsp[server].setup{
+      on_attach = on_attach,
+      flags = {
+        debounce_text_changes = 150,
+      }
+    }
+  end
+EOF
 

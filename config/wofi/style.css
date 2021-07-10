@@ -10,8 +10,9 @@
 }
 
 window {
-  background-color: @background-95;
-  border: solid 2px @bright-yellow;
+  /* background-color: @background-95; */
+  background-color: alpha(#000000, 0.95);
+  border: solid 1px @bright-yellow;
 }
 
 #outer-box {
