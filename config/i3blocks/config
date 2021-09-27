@@ -1,0 +1,11 @@
+separator=true
+separator_block_width=15
+
+[battery]
+command=$SCRIPT_DIR/battery/battery
+interval=30
+LABEL=BAT
+
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=1

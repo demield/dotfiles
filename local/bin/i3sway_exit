@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "$XDG_SESSION_DESKTOP" == "i3" ]; then
+  NAG_COMMAND="i3-nagbar -f 'xft:Terminus 9'"
+  MSG_COMMAND="i3-msg"
+else
+  NAG_COMMAND="swaynag"
+  MSG_COMMAND="swaymsg"
+fi
+
+eval "$NAG_COMMAND -t warning -m 'Do you really want to exit?' -b 'Yes' '$MSG_COMMAND exit'"
+

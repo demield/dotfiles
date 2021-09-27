@@ -4,9 +4,21 @@ APPLICATION_NAME="Bluetooth"
 SUCCESS_MESSAGE="Successfuly connected to \"%s\""
 FAIL_MESSAGE="Failed to connect to \"%s\""
 
+if [ "$XDG_SESSION_DESKTOP" == "i3" ]; then
+  SELECT_COMMAND="dmenu"
+elif [ "$XDG_SESSION_DESKTOP" == "sway" ]; then
+  SELECT_COMMAND="wofi -c \"$HOME/.config/wofi/trs_config\" --dmenu"
+else
+  notify-send -a "$APPLICATION_NAME" "Not an i3/sway environment"
+fi
+
+if [ ! -z "$(bluetoothctl show | grep 'Powered: no')" ]; then
+  bluetoothctl power on
+fi
+
 DEVICE_NAME="$(bluetoothctl devices \
   | cut -d ' ' -f 3 \
-  | wofi -c "$HOME/.config/wofi/trs_config" --dmenu)"
+  | eval "$SELECT_COMMAND")"
 
 DEVICE_MAC_ADDRESS="$(bluetoothctl devices \
   | grep $DEVICE_NAME \
@@ -20,6 +32,7 @@ test ! -z "$DEVICE_MAC_ADDRESS" && { \
 unset APPLICATION_NAME
 unset SUCCESS_MESSAGE
 unset FAIL_MESSAGE
+unset SELECT_COMMAND
 unset DEVICE_NAME
 unset DEVICE_MAC_ADDRESS
 

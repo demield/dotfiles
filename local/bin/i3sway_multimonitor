@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ "$XDG_SESSION_DESKTOP" == "i3" ]; then
+  notify-send -a "i3" "Not implemented yet"
+else
+  if [ ! -z "$(swaymsg -t get_outputs | jq -r '.[] | select(.name=="DP-1") | .name' )" ]; then
+    swaymsg output eDP-1 pos 1920 0
+    swaymsg output DP-1 pos 0 0
+  else
+    swaymsg output eDP-1 pos 0 0
+  fi
+fi
+

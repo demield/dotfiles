@@ -2,18 +2,35 @@
 
 APPLICATION_NAME="Sway"
 SUCCESS_MESSAGE="Switched wallpaper to \"%s\""
+WALLPAPER_DIR=$(xdg-user-dir WALLPAPERS)
+test -z "$WALLPAPER_DIR" && WALLPAPER_DIR=$(xdg-user-dir PICTURES)
 
-WALLPAPER=$(find $HOME/Wallpapers -name '*.png' | wofi --dmenu)
-WALLPAPER_NAME=$(echo $WALLPAPER | awk -F / '{ print $(NF) }' | cut -d '.' -f 1)
+if [ "$XDG_SESSION_DESKTOP" == "i3" ]; then
+  SELECT_COMMAND="dmenu"
+else
+  SELECT_COMMAND="wofi --dmenu"
+fi
 
-test ! -z "$WALLPAPER" && { \
-  killall mpvpaper; \
-  swaymsg "output * bg $WALLPAPER fill" \
-  && { { unlink $HOME/.config/wallpaper; ln -s "$WALLPAPER" $HOME/.config/wallpaper; } \
+WALLPAPER_NAME=$(find $WALLPAPER_DIR -name '*.png' \
+  | awk -F / '{ print $(NF) }' \
+  | cut -d '.' -f 1 \
+  | eval "$SELECT_COMMAND")
+WALLPAPER="$WALLPAPER_DIR/$WALLPAPER_NAME.png"
+
+test ! -z "$WALLPAPER" && {
+  if [ "$XDG_SESSION_DESKTOP" == "i3" ]; then
+    xwallpaper --zoom "$WALLPAPER"
+  else
+    killall mpvpaper
+    swaymsg "output * bg $WALLPAPER fill"
+  fi
+  test $? && { { unlink $HOME/.config/wallpaper; ln -s "$WALLPAPER" $HOME/.config/wallpaper; } \
     && notify-send -a "$APPLICATION_NAME" "$(printf "$SUCCESS_MESSAGE" "$WALLPAPER_NAME")";} }
 
 unset APPLICATION_NAME
 unset SUCCESS_MESSAGE
-unset WALLPAPER
+unset WALLPAPER_DIR
+unset SELECT_COMMAND
 unset WALLPAPER_NAME
+unset WALLPAPER
 

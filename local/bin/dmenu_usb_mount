@@ -4,19 +4,34 @@ APPLICATION_NAME="Disk Manager"
 SUCCESS_MESSAGE="Successfuly mounted \"%s\" at \"%s\""
 FAIL_MESSAGE="Failed to mount \"%s\""
 
+if [ "$XDG_SESSION_DESKTOP" == "i3" ]; then
+  SELECT_COMMAND="dmenu"
+elif [ "$XDG_SESSION_DESKTOP" == "sway" ]; then
+  SELECT_COMMAND="wofi -c \"$HOME/.config/wofi/trs_config\" --dmenu"
+else
+  notify-send -a "$APPLICATION_NAME" "Not an i3/sway environment"
+fi
+
 ALL_MOUNTED_PARTITIONS_FILE="$(mktemp -p /tmp usb_tmp.XXX)"
 ALL_PARTITIONS_FILE="$(mktemp -p /tmp usb_tmp.XXX)"
 
 df 2>/dev/null \
   | grep -E 'sd[^a][0-9]+' \
   | sed 's/\ \ */\ /g' \
-  | awk '{ if ($6) { print $1} }' > "$ALL_MOUNTED_PARTITIONS_FILE"
-find /dev -name 'sd*' \
-  | grep -E 'sd[^a][0-9]+' > "$ALL_PARTITIONS_FILE"
+  | awk '{ if ($6) { print $1} }' \
+  | sort > "$ALL_MOUNTED_PARTITIONS_FILE"
 
-PARTITION_PATH="$(\
-  comm -13 "$ALL_MOUNTED_PARTITIONS_FILE" "$ALL_PARTITIONS_FILE" \
-  | wofi -c "$HOME/.config/wofi/trs_config" --dmenu)"
+find /dev -name 'sd*' \
+  | grep -E 'sd[^a][0-9]+' \
+  | sort > "$ALL_PARTITIONS_FILE"
+
+PARTITION_PATHS="$(comm -13 "$ALL_MOUNTED_PARTITIONS_FILE" "$ALL_PARTITIONS_FILE")"
+
+test -z "$PARTITION_PATHS" && { \
+  notify-send -a "$APPLICATION_NAME" "No unmounted partitions";
+  exit 0; }
+
+PARTITION_PATH="$(echo $PARTITION_PATHS | eval "$SELECT_COMMAND")"
 
 test ! -z "$PARTITION_PATH" && { \
   STDOUT=$(udisksctl mount -b "$PARTITION_PATH");
@@ -32,6 +47,10 @@ rm "$ALL_MOUNTED_PARTITIONS_FILE" "$ALL_PARTITIONS_FILE"
 unset APPLICATION_NAME
 unset SUCCESS_MESSAGE
 unset FAIL_MESSAGE
+unset SELECT_COMMAND
+unset ALL_MOUNTED_PARTITIONS_FILE
+unset ALL_PARTITIONS_FILE
+unset PARTITION_PATHS
 unset PARTITION_PATH
 unset STDOUT
 unset STATUS_CODE

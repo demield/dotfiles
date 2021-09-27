@@ -1,4 +1,4 @@
-input "type:keyboard" {
+input * {
 	xkb_layout us,ru
 	xkb_options grp:toggle
   xkb_capslock disable

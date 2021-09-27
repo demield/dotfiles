@@ -8,6 +8,10 @@ BTCTL_OUTPUT="$(bluetoothctl disconnect)"
 DEVICE_MAC_ADDRESS="$(echo $BTCTL_OUTPUT | grep Attempting | cut -d ' ' -f 5)"
 DEVICE_NAME="$(bluetoothctl devices | grep $DEVICE_MAC_ADDRESS | cut -d ' ' -f 2)"
 
+if [ -z "$(bluetoothctl show | grep 'Powered: no')" ]; then
+  bluetoothctl power off
+fi
+
 test ! -z "$(echo $BTCTL_OUTPUT | grep Successful)" \
   && notify-send -a "$APPLICATION_NAME" "$(printf "$SUCCESS_MESSAGE" "$DEVICE_NAME")" \
   || notify-send -a "$APPLICATION_NAME" "$(printf "$FAIL_MESSAGE" "$DEVICE_NAME")"

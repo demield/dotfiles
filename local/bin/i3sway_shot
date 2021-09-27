@@ -1,0 +1,30 @@
+#!/bin/sh
+
+WINDOW_FLAG=1
+REGION_FLAG=1
+CLIPBOARD_FLAG=1
+
+while getopts "wrc" FLAG; do
+  case $FLAG in
+    w) WINDOW_FLAG=0 ;;
+    r) REGION_FLAG=0 ;;
+    c) CLIPBOARD_FLAG=0 ;;
+  esac
+done
+
+if [ "$XDG_SESSION_DESKTOP" == "i3" ]; then
+  notify-send -a "i3" "Not implemented yet"
+else
+  if [ $REGION_FLAG -eq 0 ] && [ $CLIPBOARD_FLAG -eq 0 ]; then
+    grim -g "$(slurp)" - | wl-copy
+    notify-send -a "Sway" "Screenshot of a region copied to clipboard"
+  elif [ $CLIPBOARD_FLAG -eq 0 ]; then
+    grim - | wl-copy && notify-send -a "Sway" "Screenshot copied to clipboard"
+  fi
+fi
+
+unset WINDOW_FLAG
+unset REGION_FLAG
+unset CLIPBOARD_FLAG
+unset FLAG
+

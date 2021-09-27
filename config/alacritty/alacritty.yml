@@ -5,16 +5,16 @@ window:
   padding:
     x: 5
     y: 5
-background_opacity: 0.9
+background_opacity: 0.85
 
 font:
   normal:
-    family: Source Code Pro
+    family: Terminus
   bold:
-    family: Source Code Pro
+    family: Terminus
   italic:
-    family: Source Code Pro
-  size: 12
+    family: Terminus
+  size: 10
 
 colors:
   primary:

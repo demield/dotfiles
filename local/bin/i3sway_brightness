@@ -1,0 +1,21 @@
+#!/bin/sh
+
+if [ "$XDG_SESSION_DESKTOP" == "i3" ]; then
+  OB_FILE="/tmp/pipe.xob"
+else
+  OB_FILE="$SWAYSOCK.wob"
+fi
+
+show_ob() {
+  brightnessctl | sed -E '/%/!d;s/.*\((.{1,3})%\)/\1/' | head -1 > "$OB_FILE"
+}
+
+case "$1" in
+  up)
+    brightnessctl set +1% && show_ob ;;
+  down)
+    brightnessctl set 1%- && show_ob ;;
+esac
+
+unset OB_FILE
+

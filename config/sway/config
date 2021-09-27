@@ -6,8 +6,10 @@ include ./style
 exec_always $HOME/.config/sway/scripts/mako.sh
 exec_always $HOME/.config/sway/scripts/waybar.sh
 exec_always $HOME/.config/sway/scripts/wob.sh
+exec_always $HOME/.config/sway/scripts/kanshi.sh
+exec xsettingsd
 
-exec /usr/libexec/xdg-desktop-portal -r
+exec /usr/lib/xdg-desktop-portal -r
 
 include /etc/sway/config.d/*
 
