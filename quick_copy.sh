@@ -12,6 +12,7 @@ cp -r "$HOME/.config/waybar"                  "./config/"
 cp -r "$HOME/.config/i3blocks"                "./config/"
 cp -r "$HOME/.config/wofi"                    "./config/"
 cp -r "$HOME/.config/mako"                    "./config/"
+cp -r "$HOME/.config/xob"                     "./config/"
 cp $HOME/.local/bin/dmenu*                    "./local/bin/"
 cp $HOME/.local/bin/i3sway*                   "./local/bin/"
 
