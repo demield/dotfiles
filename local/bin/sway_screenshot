@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# WIP
+
+while getopts "aw" OPT; do
+  case $OPT in
+    a) G="$(slurp -d)"; test ! -z "$G" && grim -g "$G" - | wl-copy ;;
+    w) grim -g "$(swaymsg -t get_tree | jq -j '.. | select(.type?) | select(.focused).rect | "\(.x),\(.y) \(.width)x\(.height)"')" - | wl-copy ;;
+    *) notify-send -a "Sway" "Not implemeted yet" ;;
+  esac
+done
+

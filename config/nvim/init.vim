@@ -33,6 +33,7 @@ let g:netrw_chgwin=1
 au BufWritePost init.vim source %
 au BufWritePre * %s/\s\+$//e
 au BufNewFile,BufRead *.axaml setf xml
+au BufNewFile,BufRead *.rst set noexpandtab tabstop=4 shiftwidth=4
 
 runtime ./plug.vim
 runtime ./map.vim

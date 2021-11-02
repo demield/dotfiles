@@ -5,7 +5,7 @@ set completeopt=menuone,noinsert,noselect
 inoremap <expr> <tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr> <s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
-let g:completion_matching_strategy_list = [ "exact", "substring", "fuzzy" ]
+let g:completion_confirm_key = ""
 let g:completion_chain_complete_list = {
       \ "default" : {
       \   "default": [

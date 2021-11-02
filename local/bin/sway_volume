@@ -1,15 +1,13 @@
 #!/bin/sh
 
-show_wob() {
-  sink=$(pactl info | sed -En 's/Default Sink: (.*)/\1/p')
-  pactl list sinks \
-    | perl -000ne "if(/$sink/){/(Volume:.*(\s([0-9]+)\%).*)/; print \"\$3\n\"}" > $SWAYSOCK.wob
-}
+io=sink
 
-case "$1" in
-  up)
-    pactl set-sink-volume @DEFAULT_SINK@ +5% && show_wob ;;
-  down)
-    pactl set-sink-volume @DEFAULT_SINK@ -5% && show_wob ;;
-esac
+while getopts "imdu" option; do
+  case $option in
+    i) io=source ;;
+    m) pactl set-$io-mute @DEFAULT_${io^^}@ toggle ;;
+    d) pactl set-$io-volume @DEFAULT_${io^^}@ -5% ;;
+    u) pactl set-$io-volume @DEFAULT_${io^^}@ +5% ;;
+  esac
+done
 

@@ -1,15 +1,32 @@
 include ./vars
-include ./inputs
 include ./bindsyms
-include ./style
 
-exec_always $HOME/.config/sway/scripts/mako.sh
-exec_always $HOME/.config/sway/scripts/waybar.sh
-exec_always $HOME/.config/sway/scripts/wob.sh
-exec_always $HOME/.config/sway/scripts/kanshi.sh
-exec xsettingsd
+input "type:keyboard" {
+  xkb_layout "us,ru"
+  xkb_options "grp:toggle"
+  xkb_capslock "disable"
+  repeat_delay 300
+  repeat_rate 50
+}
 
+input "type:touchpad" {
+  tap enabled
+  natural_scroll disabled
+}
+
+# exec swayidle -w \
+#   timeout 300 'swaylock -f -c 000000' \
+#   timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#   before-sleep 'swaylock -f -c 000000'
+
+floating_modifier $mod normal
+
+default_border pixel 2
+
+exec_always $scd/autostart
+exec $HOME/.local/bin/init_ssh_agent
 exec /usr/lib/xdg-desktop-portal -r
+exec /usr/lib/xdg-desktop-portal-wlr
 
 include /etc/sway/config.d/*
 

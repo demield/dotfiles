@@ -48,3 +48,6 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 export VISUAL="nvim"
 export EDITOR="nvim"
 
+alias ls="ls --color"
+alias grep="grep --color"
+

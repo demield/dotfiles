@@ -1,0 +1,9 @@
+# TTY_PATH="$(tty)"
+# TTY_NUMBER="$(echo $TTY_PATH | grep -Eo '[0-9]+')"
+
+# if [[ "$TTY_NUMBER" == 1 ]]; then
+#   eval $(ssh-agent)
+#   ssh-add $HOME/.ssh/work/starfish-bitbucket
+#   sway
+# fi
+

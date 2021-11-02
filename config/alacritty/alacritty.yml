@@ -1,40 +1,36 @@
 env:
   TERM: xterm-256color
 
+font:
+  normal:
+    family: Monospace
+    style: Semibold
+  size: 12
+
 window:
   padding:
     x: 5
     y: 5
-background_opacity: 0.85
-
-font:
-  normal:
-    family: Terminus
-  bold:
-    family: Terminus
-  italic:
-    family: Terminus
-  size: 10
 
 colors:
   primary:
-    background: '0x1b1d1e'
-    foreground: '0xf8f8f2'
+    background: '0x121212'
+    foreground: '0xbbbbbb'
   normal:
-    black:   '0x465457'
-    red:     '0xf92672'
-    green:   '0xa6e22e'
-    yellow:  '0xe6db74'
-    blue:    '0x1355aa'
-    magenta: '0xae81ff'
-    cyan:    '0x66d9ef'
-    white:   '0xf8f8f0'
+    black:   '0x121212'
+    red:     '0xfa2573'
+    green:   '0x98e123'
+    yellow:  '0xdfd460'
+    blue:    '0x1080d0'
+    magenta: '0x8700ff'
+    cyan:    '0x43a8d0'
+    white:   '0xbbbbbb'
   bright:
-    black:   '0x465457'
-    red:     '0xf92672'
-    green:   '0xa6e22e'
-    yellow:  '0xe6db74'
-    blue:    '0x1355aa'
-    magenta: '0xae81ff'
-    cyan:    '0x66d9ef'
-    white:   '0xf8f8f0'
+    black:   '0x555555'
+    red:     '0xf6669d'
+    green:   '0xb1e05f'
+    yellow:  '0xfff26d'
+    blue:    '0x00afff'
+    magenta: '0xaf87ff'
+    cyan:    '0x51ceff'
+    white:   '0xffffff'
