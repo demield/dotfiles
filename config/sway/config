@@ -23,8 +23,7 @@ floating_modifier $mod normal
 
 default_border pixel 2
 
-exec_always $scd/autostart
-exec $HOME/.local/bin/init_ssh_agent
+exec_always sway_autostart
 exec /usr/lib/xdg-desktop-portal -r
 exec /usr/lib/xdg-desktop-portal-wlr
 
