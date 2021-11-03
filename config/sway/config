@@ -23,7 +23,7 @@ floating_modifier $mod normal
 
 default_border pixel 2
 
-exec_always sway_autostart
+exec_always $HOME/.local/bin/sway_autostart
 exec /usr/lib/xdg-desktop-portal -r
 exec /usr/lib/xdg-desktop-portal-wlr
 

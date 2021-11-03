@@ -63,9 +63,9 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{capacity}%",
+        "format": "{time}",
         "format-charging": "{capacity}% c",
         "format-plugged": "{capacity}% p",
-        "format-alt": "{time} {icon}"
+        "format-alt": "{capacity}%"
     }
 }

@@ -1,56 +1,5 @@
-@import url('/home/demield/.config/themes/Pop-dark/gtk-colors.css');
-
-* {
-  border: none;
-  border-radius: 0;
-  font-family: 'Terminus';
-  font-size: 10px;
-  min-height: 0;
-  padding: 0;
-}
-
 window {
-  /* background-color: @background-95; */
-  background-color: alpha(#000000, 0.95);
-  border: solid 1px @bright-yellow;
-}
-
-#outer-box {
-    margin: 1px;
-}
-
-#input {
-  margin: 4px 10px;
-  background: none;
-  box-shadow: none;
-}
-
-#inner-box {
-  background-color: none;
-}
-
-#entry {
-  background-color: none;
-}
-
-#entry:selected {
-  background-color: @bright-yellow;
-  border-radius: 0px;
-}
-
-#text {
-  margin: 4px 10px;
-}
-
-#text:selected {
-  color: @background;
-}
-
-.right {
-  color: transparent;
-}
-
-.left {
-  display: none;
+  font-size: 18px;
+  font-family: 'Share Tech Mono';
 }
 

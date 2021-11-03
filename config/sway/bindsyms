@@ -25,14 +25,14 @@ bindsym --to-code {
 
   $mod+q kill
   $mod+z exec killall -SIGUSR1 waybar
-  $mod+d exec --no-startup-id $app_menu
-  $mod+Shift+d exec --no-startup-id $bin_menu
+  $mod+d exec $app_menu
+  $mod+Shift+d exec $bin_menu
   $mod+Shift+c reload
   $mod+Escape exec swaynag -t warning -m 'Do You really want to exit?' -b 'Yes' 'swaymsg exit'
 
-  $mod+Mod1+n       exec --no-startup-id wofi_network_manager_connection_menu
-  $mod+Mod1+Shift+n exec --no-startup-id wofi_network_manager_connection_menu 1
-  $mod+Mod1+p       exec --no-startup-id wofi_power_menu
+  $mod+Mod1+n       exec $HOME/.local/bin/wofi_network_manager_connection_menu
+  $mod+Mod1+Shift+n exec $HOME/.local/bin/wofi_network_manager_connection_menu 1
+  $mod+Mod1+p       exec $HOME/.local/bin/wofi_power_menu
 }
 
 bindsym $mod+F9 exec swaylock -f -c 000000
@@ -83,13 +83,13 @@ bindsym XF86AudioPause            exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext             exec --no-startup-id playerctl next
 bindsym XF86AudioPrev             exec --no-startup-id playerctl previous
 
-bindsym XF86AudioRaiseVolume      exec --no-startup-id sway_volume -u
-bindsym XF86AudioLowerVolume      exec --no-startup-id sway_volume -d
-bindsym XF86AudioMute             exec --no-startup-id sway_volume -m
+bindsym XF86AudioRaiseVolume      exec --no-startup-id $HOME/.local/bin/sway_volume -u
+bindsym XF86AudioLowerVolume      exec --no-startup-id $HOME/.local/bin/sway_volume -d
+bindsym XF86AudioMute             exec --no-startup-id $HOME/.local/bin/sway_volume -m
 
-bindsym Mod1+XF86AudioRaiseVolume exec --no-startup-id sway_volume -i -u
-bindsym Mod1+XF86AudioLowerVolume exec --no-startup-id sway_volume -i -d
-bindsym Mod1+XF86AudioMute        exec --no-startup-id sway_volume -i -m
+bindsym Mod1+XF86AudioRaiseVolume exec --no-startup-id $HOME/.local/bin/sway_volume -i -u
+bindsym Mod1+XF86AudioLowerVolume exec --no-startup-id $HOME/.local/bin/sway_volume -i -d
+bindsym Mod1+XF86AudioMute        exec --no-startup-id $HOME/.local/bin/sway_volume -i -m
 
 bindsym XF86MonBrightnessUp       exec brightnessctl s +1%
 bindsym XF86MonBrightnessDown     exec brightnessctl s 1%-
