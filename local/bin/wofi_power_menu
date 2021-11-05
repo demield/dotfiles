@@ -1,0 +1,26 @@
+#!/bin/sh
+
+declare -A options
+options["Lock"]="swaylock"
+options["Logout"]="swaymsg exit"
+options["Suspend"]="lock_and_suspend"
+options["Reboot"]="systemctl reboot"
+options["Poweroff"]="systemctl poweroff"
+
+lock_and_suspend() {
+  swaylock -f
+  systemctl suspend
+}
+
+print_options() {
+  for option in ${!options[*]}; do
+    echo $option
+  done
+}
+
+option="$(print_options | wofi --dmenu)"
+
+if [[ ! -z $option ]]; then
+  ${options[$option]}
+fi
+

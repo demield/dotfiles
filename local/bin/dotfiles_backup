@@ -1,0 +1,24 @@
+#!/bin/sh
+
+config_dir="$HOME/.config"
+bin_dir="$HOME/.local/bin"
+project_dir="$HOME/Projects/Mine/dotfiles"
+
+cp -r "$config_dir/alacritty" "$project_dir/config/"
+cp -r "$config_dir/mako" "$project_dir/config/"
+cp -r "$config_dir/sway" "$project_dir/config/"
+cp -r "$config_dir/waybar" "$project_dir/config/"
+cp -r "$config_dir/wofi" "$project_dir/config/"
+cp -r "$config_dir/zsh" "$project_dir/config/"
+cp -r "$config_dir/nvim/after" "$project_dir/config/nvim/"
+cp -r "$config_dir/nvim/plugin" "$project_dir/config/nvim/"
+
+find "$config_dir/nvim" -maxdepth 1 -type f -name '*.vim' -exec \
+  cp {} "$project_dir/config/nvim/" \;
+find "$bin_dir" -type f -name 'wofi*' -exec \
+  cp {} "$project_dir/local/bin/" \;
+find "$bin_dir" -type f -name 'sway*' -exec \
+  cp {} "$project_dir/local/bin/" \;
+find "$bin_dir" -type f -name 'dotfiles*' -exec \
+  cp {} "$project_dir/local/bin/" \;
+

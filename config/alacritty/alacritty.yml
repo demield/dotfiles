@@ -3,9 +3,8 @@ env:
 
 font:
   normal:
-    family: Monospace
-    style: Semibold
-  size: 12
+    family: Share Tech Mono
+  size: 16
 
 window:
   padding:
