@@ -1,0 +1,27 @@
+#!/bin/sh
+
+app="Bluetooth Manager"
+
+if [[ $# -gt 0 ]]; then
+  operation=disconnect; message="Disconnected from"
+  fail_message="Could not disconnect from"
+else
+  operation=connect; message="Connected to"
+  fail_message="Could not connect to"
+fi
+
+devices="$(bluetoothctl devices | cut -d ' ' -f 2-3)"
+device_names="$(cut -d ' ' -f 2 <<< $devices)"
+device_name="$(wofi --dmenu <<< $device_names)"
+
+if [[ ! -z "$device_name" ]]; then
+  device_mac="$(grep $device_name <<< $devices | cut -d ' ' -f 1)"
+  bluetoothctl $operation $device_mac
+  if [[ $? ]]; then
+    final_message="$message"
+  else
+    final_message="$fail_message"
+  fi
+  notify-send -a "$app" "$final_message $device_name"
+fi
+

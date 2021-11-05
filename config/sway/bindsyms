@@ -30,9 +30,12 @@ bindsym --to-code {
   $mod+Shift+c reload
   $mod+Escape exec swaynag -t warning -m 'Do You really want to exit?' -b 'Yes' 'swaymsg exit'
 
-  $mod+Mod1+n       exec $HOME/.local/bin/wofi_network_manager_connection_menu
-  $mod+Mod1+Shift+n exec $HOME/.local/bin/wofi_network_manager_connection_menu 1
+  $mod+Mod1+n       exec $HOME/.local/bin/wofi_network_menu
+  $mod+Mod1+Shift+n exec $HOME/.local/bin/wofi_network_menu 1
+  $mod+Mod1+b       exec $HOME/.local/bin/wofi_bluetooth_menu
+  $mod+Mod1+Shift+b exec $HOME/.local/bin/wofi_bluetooth_menu 1
   $mod+Mod1+p       exec $HOME/.local/bin/wofi_power_menu
+  $mod+Mod1+w       exec $HOME/.local/bin/wofi_wallpaper_menu
 }
 
 bindsym $mod+F9 exec swaylock -f -c 000000

@@ -1,0 +1,44 @@
+#!/bin/sh
+
+app="Network Manager"
+
+if [[ $# -gt 0 ]]; then
+  mode=0; operation=down
+  message="Disconnected from"; fail_message="Could not disconnect from"
+else
+  mode=1; operation=up
+  message="Connected to"; fail_message="Could not connect to"
+fi
+
+# NOTE
+# I could use --terse option or even --get-values option, but
+# in that case it outputs '802-11-wireless' instead of 'wifi'
+alias preprocess="tail +2 | sed -E 's/\s\s+/:/g;s/(:|\s)$//g'"
+alias get_connections="nmcli --fields TYPE,NAME connection show"
+
+all_connections="$(get_connections | preprocess)"
+active_connections="$(get_connections --active | preprocess)"
+
+print_connections() {
+  while read -r connection; do
+    if [[ ! -z "$(grep -o "$connection" <<< "$active_connections")" ]]
+    then contains=0; else contains=1; fi
+    if [[ $mode -eq $contains ]]; then
+      printf "%4s : %s\n" "${connection%%:*}" "${connection##*:}"
+    fi
+  done <<< $all_connections
+}
+
+connection="$(print_connections | wofi --dmenu)"
+
+if [[ ! -z "$connection" ]]; then
+  connection_name="${connection##*: }"
+  nmcli connection $operation "$connection_name"
+  if [[ $? ]]; then
+    final_message="$message"
+  else
+    final_message="$fail_message"
+  fi
+  notify-send -a "$app" "$final_message $connection_name"
+fi
+
