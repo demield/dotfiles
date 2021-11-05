@@ -1,0 +1,19 @@
+#!/bin/sh
+
+app="Sway"
+
+wallpaper_link="$HOME/.config/wallpaper"
+wallpapers_dir="$(xdg-user-dir WALLPAPERS)"
+wallpapers="$(find $wallpapers_dir -type f -name '*.png')"
+wallpaper_names="$(rev <<< $wallpapers | cut -d '/' -f 1 | rev)"
+wallpaper="$(wofi --dmenu <<< $wallpaper_names)"
+
+if [[ ! -z "$wallpaper" ]]; then
+  wallpaper_file="$(grep $wallpaper <<< $wallpapers)"
+  unlink "$wallpaper_link"
+  ln -s "$wallpaper_file" "$wallpaper_link"
+  pkill swaybg
+  swaybg -o '*' -m fill -i "$wallpaper_link" &
+  notify-send -a "$app" "Wallpaper set to $wallpaper"
+fi
+
